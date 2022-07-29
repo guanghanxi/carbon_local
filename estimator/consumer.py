@@ -41,4 +41,4 @@ class DashConsumer(AsyncWebsocketConsumer):
 
     async def deprocessing(self,event): 
         
-        await self.send(text_data=json.dumps({'temperature': event['temperature'], 'power': event['power']}))
+        await self.send(text_data=json.dumps({'temperature': event['temperature'], 'power': event['power'], 'carbon': event['power']*1.2} ))

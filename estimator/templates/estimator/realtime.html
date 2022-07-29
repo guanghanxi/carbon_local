@@ -32,6 +32,13 @@
             PowerData['data']['datasets'][0]['data']=pNew;
             window.pLine.update();
 
+            cNew=CarbonData['data']['datasets'][0]['data'];
+            cNew.shift();
+            cNew.push(recData.carbon);
+            CarbonData['data']['labels']=timeNew;
+            CarbonData['data']['datasets'][0]['data']=cNew;
+            window.cLine.update();
+
         };
 
         socket.onclose = function(e){
@@ -40,18 +47,23 @@
 
     </script>
 
-    <h1>Real-Time Carbon Evaluation Sample</h1>
+    <h1>Real-Time Carbon Emission Evaluation Sample of Buildings</h1>
 
     <h2>Real-Time Data From Building</h2>
 
     <h3>Temperature</h3>
     <div>
-        <canvas id="mytemperature" width="900" height="400"></canvas>
+        <canvas id="mytemperature" width="800" height="300"></canvas>
     </div>
 
     <h3>Power</h3>
     <div>
-        <canvas id="mypower" width="900" height="400"></canvas>
+        <canvas id="mypower" width="800" height="300"></canvas>
+    </div>
+
+    <h2>Carbon Emission Estimation</h2>
+    <div>
+        <canvas id="mycarbon" width="800" height="300"></canvas>
     </div>
 
     <script>
@@ -64,7 +76,7 @@
             data: {
                 labels: ['---','---','---','---','---','---','---','---'],
                 datasets: [{
-                    label: 'Tempareture',
+                    label: 'Tempareture (Celsius)',
                     data: [0, 0, 0, 0, 0, 0, 0, 0],
                     backgroundColor: 'rgba(255, 0, 0, 1)',
                     borderColor: 'rgba(255, 0, 0, 0.6)',
@@ -107,10 +119,10 @@
             data: {
                 labels: ['---','---','---','---','---','---','---','---'],
                 datasets: [{
-                    label: 'Power',
+                    label: 'Power (kWh)',
                     data: [0, 0, 0, 0, 0, 0,0,0],
-                    backgroundColor: 'rgba(255, 0, 0, 1)',
-                    borderColor: 'rgba(255, 0, 0, 0.6)',
+                    backgroundColor: 'rgba(255, 0, 255, 1)',
+                    borderColor: 'rgba(255, 0, 255, 0.6)',
                     borderWidth: 5
                 }]
             },
@@ -144,6 +156,49 @@
         }
         var pctx = document.getElementById('mypower').getContext('2d');
         window.pLine = new Chart(pctx, PowerData);
+
+        var CarbonData={
+            type: 'line',
+            data: {
+                labels: ['---','---','---','---','---','---','---','---'],
+                datasets: [{
+                    label: 'Carbon Emission (kg)',
+                    data: [0, 0, 0, 0, 0, 0,0,0],
+                    backgroundColor: 'rgba(0, 0, 255, 1)',
+                    borderColor: 'rgba(0, 0, 255, 0.6)',
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        grid: {
+                            borderWidth: 5,
+                            lineWidth: 3,
+                            color: 'rgba(0, 0, 0, 0.4)'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            borderWidth: 5,
+                            lineWidth: 3,
+                            color: 'rgba(0, 0, 0, 0.4)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 20
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        var cctx = document.getElementById('mycarbon').getContext('2d');
+        window.cLine = new Chart(cctx, CarbonData);
     </script>
 
   

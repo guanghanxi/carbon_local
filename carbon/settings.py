@@ -74,7 +74,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'carbon.wsgi.application'
 ASGI_APPLICATION = 'carbon.routing.application'
 
-'''
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -84,12 +84,12 @@ CHANNEL_LAYERS = {
     },
 }
 
-'''
-CHANNEL_LAYERS = {
-     "default": {
-         "BACKEND": "channels.layers.InMemoryChannelLayer"
-     }
-}
+
+# CHANNEL_LAYERS = {
+#      "default": {
+#          "BACKEND": "channels.layers.InMemoryChannelLayer"
+#      }
+# }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
