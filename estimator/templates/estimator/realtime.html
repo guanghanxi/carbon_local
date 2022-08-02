@@ -15,15 +15,15 @@
             let date = new Date()
             var date_string = (date.getMonth()+1) + '/' + date.getDate() +" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
             var recData=JSON.parse(e.data);
-            timeNew = TemparetureData['data']['labels']
+            timeNew = GasData['data']['labels']
             timeNew.shift()
             timeNew.push(date_string)
-            TemparetureData['data']['labels']=timeNew;
-            tNew=TemparetureData['data']['datasets'][0]['data'];
-            tNew.shift();
-            tNew.push(recData.temperature);
-            TemparetureData['data']['datasets'][0]['data']=tNew;
-            window.tLine.update();
+            GasData['data']['labels']=timeNew;
+            gNew=GasData['data']['datasets'][0]['data'];
+            gNew.shift();
+            gNew.push(recData.gas);
+            GasData['data']['datasets'][0]['data']=gNew;
+            window.gLine.update();
 
             pNew=PowerData['data']['datasets'][0]['data'];
             pNew.shift();
@@ -51,9 +51,9 @@
 
     <h2>Real-Time Data From Building</h2>
 
-    <h3>Temperature</h3>
+    <h3>Natural Gas</h3>
     <div>
-        <canvas id="mytemperature" width="800" height="300"></canvas>
+        <canvas id="mygas" width="800" height="300"></canvas>
     </div>
 
     <h3>Power</h3>
@@ -70,13 +70,13 @@
 
         Chart.defaults.font.size = 16;
 
-        var TemparetureData={
+        var GasData={
             type: 'line',
             color: 'black',
             data: {
                 labels: ['---','---','---','---','---','---','---','---'],
                 datasets: [{
-                    label: 'Tempareture (Celsius)',
+                    label: 'Natural Gas (cubic meter)',
                     data: [0, 0, 0, 0, 0, 0, 0, 0],
                     backgroundColor: 'rgba(255, 0, 0, 1)',
                     borderColor: 'rgba(255, 0, 0, 0.6)',
@@ -111,8 +111,8 @@
                 }
             }
         }
-        var tctx = document.getElementById('mytemperature').getContext('2d');
-        window.tLine = new Chart(tctx, TemparetureData);
+        var gctx = document.getElementById('mygas').getContext('2d');
+        window.gLine = new Chart(gctx, GasData);
 
         var PowerData={
             type: 'line',
@@ -162,7 +162,7 @@
             data: {
                 labels: ['---','---','---','---','---','---','---','---'],
                 datasets: [{
-                    label: 'Carbon Emission (kg)',
+                    label: 'Carbon Emission (g)',
                     data: [0, 0, 0, 0, 0, 0,0,0],
                     backgroundColor: 'rgba(0, 0, 255, 1)',
                     borderColor: 'rgba(0, 0, 255, 0.6)',
